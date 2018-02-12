@@ -1,0 +1,28 @@
+#!/bin/tcsh -f
+#
+# Delivers census data for the top argv[1] most populated Census Units
+# among all ($2 = A), only city's ($2 = C), or only townships ($2 = T)
+# ordered populations highest to lowest, then alphabetical
+#
+
+echo ' '
+
+cat /user/cse410/Projects/project01.headers
+
+if ($2 == "A") then
+  
+  sort -t'|' -k3,3nr -k1,1 /user/cse410/Projects/project01.data | head -$1
+
+else if ($2 == "C") then
+
+  grep "city" /user/cse410/Projects/project01.data | sort -t'|' -k3,3nr -k1,1 |\
+    head -$1
+
+else if ($2 == "T") then
+
+  grep "township" /user/cse410/Projects/project01.data | sort -t'|' -k3,3nr \
+    -k1,1 | head -$1
+
+endif
+
+echo ' '

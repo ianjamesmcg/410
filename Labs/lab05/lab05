@@ -1,0 +1,160 @@
+
+Lab Exercise #5 -- POSIX Threads
+
+A. Timing Processes
+
+There are several ways to measure the time consumed by processes, including
+the built-in "time" command in some of the commonly used shells.  From the
+on-line manual entry for "tcsh":
+
+  time [comm]
+
+    Executes "comm" (which must be a simple command, not an alias, a pipeline,
+    a command list or a parenthesized command list) and prints a time summary
+    as described under the time variable.  If necessary, an extra shell is
+    created to print the time statistics when the command completes.  Without
+    "comm", prints a time summary for the current shell and its children.
+
+1) Use the built-in shell command to dislay information about the execution of
+your current shell process, as well as the execution of "ls".  What are the
+first three fields reported for the following commands?
+
+  time:
+
+  time ls -lF:
+
+2) One of the more useful utilities is "time", which is described in Section 1
+of the on-line manual.  What values are reported for the following command?
+
+  /usr/bin/time -p ls -lF
+
+Give a brief definition of the following terms.
+
+  real time:
+
+  user time:
+
+  sys time:
+
+
+B. The POSIX Threads Library
+
+Perform the following experiments on the server "cse410" (or the server
+"arctic") so that you are working on a machine with multiple cores.
+
+Move into the directory named "~cse410/Labs" to conduct the experiments.
+
+
+1) Examine the program in the file named "lab05.q1.c", then answer the
+following questions.  The file named "lab05.q1" contains an executable version
+of that program.
+
+a) Are there multiple threads of control in the program, or only a single
+thread of control?  Explain.
+
+b) What is the purpose of the call to function "sleep" in the program?
+
+c) Execute the following command twice:
+
+  /usr/bin/time -p lab05.q1
+
+  real:  ____________     real:  ____________
+  user:  ____________     user:  ____________
+  sys:   ____________     sys:   ____________
+
+d) Explain the results in part (c).
+
+e) Use the "taskset" command to bind the process (and all of its threads) to
+CPU 0 on the server you are using.  Execute the following command twice:
+
+  taskset -a -c 0 /usr/bin/time -p lab05.q1
+
+  real:  ____________     real:  ____________
+  user:  ____________     user:  ____________
+  sys:   ____________     sys:   ____________
+
+f) Explain the results in part (e).
+
+g) Compare and contrast the results in part (c) and part (e).
+
+
+2) Examine the program in the file named "lab05.q2.c", then answer the
+following questions.   The file named "lab05.q2" contains an executable
+version of that program.
+
+a) Are there multiple threads of control in the program, or only a single
+thread of control?  Explain.
+
+b) Does the master thread wait until the other threads terminate?  Explain.
+
+c) Execute the following command twice:
+
+  /usr/bin/time -p lab05.q2
+
+  real:  ____________     real:  ____________
+  user:  ____________     user:  ____________
+  sys:   ____________     sys:   ____________
+
+d) Explain the results in part (c).
+
+e) Use the "taskset" command to bind the process (and all of its threads) to
+CPU 0 on the server you are using.  Execute the following command twice:
+
+  taskset -a -c 0 /usr/bin/time -p lab05.q2
+
+  real:  ____________     real:  ____________
+  user:  ____________     user:  ____________
+  sys:   ____________     sys:   ____________
+
+f) Explain the results in part (e).
+
+g) Compare and contrast the results in part (c) and part (e).
+
+
+3) Examine the program in the file named "lab05.q3.c", then answer the
+following questions.   The file named "lab05.q3" contains an executable
+version of that program.
+
+a) Are there multiple threads of control in the program, or only a single
+thread of control?  Explain.
+
+b) What mechanism is used in the program to consume wall time?  Does that
+approach also consume execution time?
+
+c) Execute the following command twice:
+
+  /usr/bin/time -p lab05.q3
+
+  real:  ____________     real:  ____________
+  user:  ____________     user:  ____________
+  sys:   ____________     sys:   ____________
+
+d) Explain the results in part (c).
+
+e) Use the "taskset" command to bind the process (and all of its threads) to
+CPU 0 on the server you are using.  Execute the following command twice:
+
+  taskset -a -c 0 /usr/bin/time -p lab05.q3
+
+  real:  ____________     real:  ____________
+  user:  ____________     user:  ____________
+  sys:   ____________     sys:   ____________
+
+f) Explain the results in part (e).
+
+g) Compare and contrast the results in part (c) and part (e).
+
+h) Use the "taskset" command to bind the process (and all of its threads) to
+CPU 0 and CPU 1 on the server you are using.  Execute the following command
+twice:
+
+  taskset -a -c 0,1 /usr/bin/time -p lab05.q3
+
+  real:  ____________     real:  ____________
+  user:  ____________     user:  ____________
+  sys:   ____________     sys:   ____________
+
+i) Explain the results in part (h).
+
+j) Compare and contrast the results in part (e) and part (h).
+

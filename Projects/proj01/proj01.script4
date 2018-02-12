@@ -1,0 +1,44 @@
+#!/bin/tcsh -f
+#
+# Delivers census data for the top argv[1] most populated Census Units
+# among all ($2 = A), only city's ($2 = C), or only townships ($2 = T)
+# ordered populations highest to lowest, then alphabetical
+#
+
+echo ' '
+
+if ($#argv != 2) then
+
+  echo 'invalid # of arguments'
+  echo 'usage: ' $0 'N(number of records to show) unitType(A ll, T ownship, or City)'
+
+else if ($1 <= 0) then
+
+  echo 'invalid usage: second token must be greater than zero'
+
+else if (($2 != 'A') && ($2 != 'T') && ($2 != 'C')) then
+
+  echo "invalid usage: second token must be 'A' for all, 'T' for township, or 'C' for city"
+
+else
+  cat /user/cse410/Projects/project01.headers
+
+  if ($2 == "A") then
+  
+    sort -t'|' -k3,3nr -k1,1 /user/cse410/Projects/project01.data | head -$1
+
+  else if ($2 == "C") then
+
+    grep "city" /user/cse410/Projects/project01.data | sort -t'|' -k3,3nr -k1,1 |\
+      head -$1
+
+  else if ($2 == "T") then
+
+    grep "township" /user/cse410/Projects/project01.data | sort -t'|' -k3,3nr \
+      -k1,1 | head -$1
+
+  endif
+
+endif  
+
+echo ' '

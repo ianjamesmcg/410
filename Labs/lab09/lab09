@@ -1,0 +1,84 @@
+
+Lab Exercise #9 -- Processor Scheduling
+
+1) The following processes are to be executed on a uniprocessor system.
+Arrival time is shown in the table, along with total CPU time required.
+Assume that the processes issue no requests to block, and that the operating
+system uses no CPU time.
+
+            Time of   Total
+   Process  Arrival  CPU time
+      A        0         4
+      B        2         2
+      C        3         5
+      D        4         1
+      E        5         3
+
+a) For each of the scenarios listed below, complete a timing chart to show how
+these processes would be scheduled.  Be sure to indicate which process has the
+CPU during each time interval.
+
+              0                   5                  10                  15 
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+   FCFS       | A | A | A | A | B | B | C | C | C | C | C | D | E | E | E |
+              |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+              0                   5                  10                  15 
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+   RR (q=1)   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+              |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+              0                   5                  10                  15 
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+   RR (q=3)   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+              |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+              0                   5                  10                  15 
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+   SPN        |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+              |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+b) Complete the tables with the waiting and turnaround times for each of the
+scenarios specified above.
+
+   FCFS      Waiting      Turnaround       RR (1)    Waiting      Turnaround
+
+        A    __________   __________            A    __________   __________
+        B    __________   __________            B    __________   __________
+        C    __________   __________            C    __________   __________
+        D    __________   __________            D    __________   __________
+        E    __________   __________            E    __________   __________
+
+   RR (3)    Waiting      Turnaround       SPN       Waiting      Turnaround
+
+        A    __________   __________            A    __________   __________
+        B    __________   __________            B    __________   __________
+        C    __________   __________            C    __________   __________
+        D    __________   __________            D    __________   __________
+        E    __________   __________            E    __________   __________
+
+
+
+2) In your own words, define each of the following terms.
+
+a) throughput
+
+b) turnaround time
+
+c) response time
+
+
+3) In your own words, define each of the following terms.
+
+a) medium-term scheduling
+
+b) short-term scheduling
+
+c) non-preemptive scheduling algorithm
+
+d) preemptive scheduling algorithm
+

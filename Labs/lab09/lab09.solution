@@ -1,0 +1,109 @@
+
+Lab Exercise #9 Solution
+
+1) The following processes are to be executed on a uniprocessor system.
+Arrival time is shown in the table, along with total CPU time required.
+Assume that the processes issue no requests to block, and that the operating
+system uses no CPU time.
+
+            Time of   Total
+   Process  Arrival  CPU time
+      A        0         4
+      B        2         2
+      C        3         5
+      D        4         1
+      E        5         3
+
+a) For each of the scenarios listed below, complete a timing chart to show how
+these processes would be scheduled.  Be sure to indicate which process has the
+CPU during each time interval.
+
+              0                   5                  10                  15 
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+   FCFS       |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+              | A | A | A | A | B | B | C | C | C | C | C | D | E | E | E |
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+              0                   5                  10                  15 
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+   RR (q=1)   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+              | A | A | B | A | C | B | D | A | E | C | E | C | E | C | C |
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+              0                   5                  10                  15 
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+   RR (q=3)   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+              | A | A | A | B | B | C | C | C | A | D | E | E | E | C | C |
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+              0                   5                  10                  15 
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+   SPN        |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+              | A | A | A | A | D | B | B | E | E | E | C | C | C | C | C |
+              +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+b) Complete the tables with the waiting and turnaround times for each of the
+scenarios specified above.
+
+   FCFS      Waiting      Turnaround       RR (1)    Waiting      Turnaround
+
+        A    _____0____   _____4____            A    _____4____   _____8____
+        B    _____2____   _____4____            B    _____2____   _____4____
+        C    _____3____   _____8____            C    _____7____   ____12____
+        D    _____7____   _____8____            D    _____2____   _____3____
+        E    _____7____   ____10____            E    _____5____   _____8____
+
+   RR (3)    Waiting      Turnaround       SPN       Waiting      Turnaround
+
+        A    _____5____   _____9____            A    _____0____   _____4____
+        B    _____1____   _____3____            B    _____3____   _____5____
+        C    _____7____   ____12____            C    _____7____   ____12____
+        D    _____5____   _____6____            D    _____0____   _____1____
+        E    _____5____   _____8____            E    _____2____   _____5____
+
+
+
+2) In your own words, define each of the following terms.
+
+a) throughput
+
+The amount of work completed in a given interval of time.
+
+
+b) turnaround time
+
+The time interval between the submission of a process and its completion.
+
+
+c) response time
+
+For an interactive process, the time from the submission of a request until
+the system starts to respond.
+
+
+3) In your own words, define each of the following terms.
+
+a) medium-term scheduling
+
+Usually part of memory management (swapping); controls the number of processes
+which are resident in RAM by swapping processes out or swapping processes in.
+
+
+b) short-term scheduling
+
+The decision as to which process from the pool of processes in the Ready state
+is selected to use the processor next.
+
+
+c) non-preemptive scheduling algorithm
+
+The process which is in the Running state continues to execute until it
+terminates or issues a system call to block itself.
+
+
+d) preemptive scheduling algorithm
+
+The process which is in the Running state may be interrupted and moved to the
+Ready state by the operating system.
+
+

@@ -1,0 +1,24 @@
+#!/bin/tcsh -f
+#
+# C shell script to illustrate the "foreach" control construct.
+#
+
+echo ' '
+echo 'Contents of the shell variable "path" as a single string: '
+echo $path
+
+echo ' '
+echo -n 'The number of individual tokens in the shell variable "path": '
+echo $#path
+
+echo ' '
+echo 'Contents of the shell variable "path" as individual tokens: '
+
+foreach pname ($path[*])
+
+  echo '--' $pname
+
+end
+
+echo ' '
+

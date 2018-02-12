@@ -1,0 +1,31 @@
+#!/bin/tcsh -f
+#
+# C shell script to illustrate the "if" control construct.
+#
+
+if ($#argv != 2) then
+
+  echo 'usage:' $0 'local (or global) filename'
+
+else
+
+  if ($1 == 'local') then
+
+    ls -lF $2
+
+  else if ($1 == 'global') then
+
+    foreach pname ($path[*])
+
+      ls -lF $pname/$2
+
+    end
+
+  else
+
+    echo 'invalid option -- usage:' $0 'local (or global) filename'
+
+  endif
+
+endif
+

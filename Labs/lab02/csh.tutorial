@@ -1,0 +1,544 @@
+
+Working in a Linux Environment
+
+A. Shell Basics
+
+When you access a Linux workstation in one of the CSE labs, a GUI begins
+executing and a shell (command interpreter) begins executing inside each
+window.  Most students use the C shell command interpreter ("tcsh"), although
+almost all shells are similar.
+
+The C shell is a utility program designed to make it easier for users to
+perform common tasks.  It repeatedly displays a prompt and waits for the user
+to enter input at the keyboard, interprets the input, and attempts to perform
+the task specified by the input.
+
+1) Use "echo $shell" to display the name of the shell you are executing.
+
+   _______/bin/tcsh___________________________________________________________
+
+The default shell prompt includes three pieces of information: the sequence
+number of the prompt, the name of the workstation you are using, and the name
+of the directory in which you are currently working.  Note: the symbol "~" is
+used to represent the name of your home directory.
+
+2) Give the shell prompt currently displayed in your working window.
+
+   _______<180 cse410:~/Documents/cse410/Labs/lab02 >___________________________
+
+3) Describe the information displayed in that shell prompt.
+
+   _______180 is the current sequence number of the prompt______________________
+
+   _______cse410 is the workstation I'm logged into_____________________________
+
+   _______I'm currently working in my cse410 lab02 folder_______________________
+
+The shell accepts input from the keyboard and breaks up the line into "tokens"
+(individual words), using blanks and tabs as delimiters.  Certain characters
+have special meanings.  From the "man" entry for "csh":
+
+   The characters &, |, ;, <, >, (, and ) form separate words; if paired,
+   the pairs form single words.  These shell metacharacters can be made part
+   of other words and their special meaning can be suppressed by preceding
+   them with a '\' (backslash).  A newline preceded by a '\' is equivalent to
+   a space.
+
+A simple command is a sequence of words; multiple simple commands can be
+entered on the same line if they are separated by semicolons.
+
+4) Describe the output from "echo $shell; echo $shell".
+
+   _____two instances of /bin/tcsh are shown on separate lines__________________
+
+5) What happens if you enter a backslash and a new line after the semicolon?
+
+   _____a '?' appears and the shell waits for another token_____________________
+
+   _____________________________________________________________________________
+
+The first word in a simple command is assumed to be the name of a built-in
+shell command or program that you wish to execute.  If that word is not the
+name of a built-in shell command, the shell examines your search path and tries
+to find the indicated program.
+
+From the "man" entry for "csh":
+
+   If the command is a C shell built-in command, the shell executes it
+   directly.  Otherwise, the shell searches for a file by that name with
+   execute access.  If the command name contains a /, the shell takes it as a
+   pathname, and searches for it.  If the command name does not contain a /,
+   the shell attempts to resolve it to a pathname, searching each directory in
+   the "path" variable for the command.
+
+For example, "cd" is a C shell built-in command to move to a different
+directory, and "/usr/bin/ls" is the name of a utility program to display the
+names of the files in a directory.
+
+6) Use "echo $path" to display the directories in your search path.
+
+   _____/soft/linux/bin /usr/local/bin /usr/bin /bin /usr/games /usr/X11R6/bin
+   /usr/local/bin /user/mcgreg45/bin /usr/local/IBMJava2-13/bin .
+   /user/cse320/bin_____________________________________________________________
+
+   _____________________________________________________________________________
+
+7) Briefly describe the effect of entering "/bin/ls" at the prompt.
+
+   _____lists contents of the current working directory_________________________
+
+8) Briefly describe the effect of entering "ls" at the prompt.
+
+   _____same as /bin/ls_________________________________________________________
+
+B. Linux File System Basics
+
+The Linux file system is organized as a tree of directories and files, with the
+directory "/" at the root of the tree.  When you access your account, you are
+initially positioned in your home directory.
+
+1) Use the command "pwd" ("print working directory") to display the absolute
+pathname of your home directory.
+
+   ______/user/mcgreg45_________________________________________________________
+
+2) Use the command "cd /user/cse410" to position yourself in the directory
+for this class, which is owned by the instructors and is used to store course
+files, then use "pwd" to display the absolute pathname of that directory.
+
+   ______/user/cse410___________________________________________________________
+
+The shell recognizes several shortcuts related to home directories.  The
+command "cd" (with no other tokens) changes directories to your home directory.
+When the character '~' is the first character in a token, the shell attempts to
+convert that token into the home directory of a user.  As a special case, '~'
+by itself refers to the user's home directory.
+
+3) Briefly describe the effects of the following command sequence:
+
+   cd ~; pwd; \
+   cd ~cse410; pwd
+
+   _______prints pathname of home directory then cse410_________________________
+
+   _______leaves prompt in cse410 directory_____________________________________
+
+The shell recognizes absolute pathnames (which begin with '/') and relative
+pathnames (which are assumed to be names relative to the current directory).
+In addition, the symbol "." is used to represent the current directory, and the
+symbol ".." is used to represent the parent of the current directory.
+
+4) Give a sequence of commands to move into the home directory for "cse410",
+then into the "Projects" subdirectory and display its absolute pathname.
+
+   ________cd ~cse410/Projects__________________________________________________
+
+5) Give a sequence of command to move from the "Projects" subdirectory to the
+"General" subdirectory and display its absolute pathname.
+
+   _______cd ../General_________________________________________________________
+
+6) The "ls" utility program displays the filenames (initial component of
+relative pathnames) of the files in the current directory.  Use "man ls" to
+give a brief description of each of the following variations on "ls":
+
+   "ls": _______ list directory contents alphabetically_________________________
+
+   _____________________________________________________________________________
+
+   "ls -a": _____do not ignore entries starting with .__________________________
+
+   _____________________________________________________________________________
+
+   "ls -l": _____use long listing format________________________________________
+
+   _____________________________________________________________________________
+
+The shell recognizes wildcards when you specify filenames: '*' denotes a
+sequence of zero or more characters, and '?' denotes a single character.
+
+7) Move into the "General" subdirectory of the "cse410" home directory, then
+list the filenames displayed by the following commands:
+
+   "ls in*":
+
+   index.php  intro.emacs.pdf  intro.gnu.pdf  intro.handin.pdf  intro.make.pdf
+   intro.vi.pdf
+   _____________________________________________________________________________
+
+   "ls intro*":
+
+   intro.emacs.pdf  intro.gnu.pdf  intro.handin.pdf  intro.make.pdf
+   intro.vi.pdf_________________________________________________________________
+
+   "ls *e":
+
+   ls: No match.________________________________________________________________
+
+   "ls *e*":
+
+   index.php  intro.emacs.pdf  intro.make.pdf___________________________________
+
+   "ls *?e?*":
+
+   index.php  intro.emacs.pdf  intro.make.pdf___________________________________
+
+   "ls *.e*":
+
+   intro.emacs.pdf______________________________________________________________
+
+C. Utility Programs
+
+The CSE Linux environment contains a wealth of utility programs, including some
+that are used to manage files, such as "cp", "mv", "rm", "mkdir" and "rmdir".
+Others are used to display the contents of text files ("cat", "more"), to edit
+text files ("vi", "emacs"), or to filter text files ("head", "cut", "grep").
+
+1) The file named "~cse410/Tutorials/CSH/faculty_list" contains a list of
+faculty members from Computer Science and Engineering.  Copy that file into
+your account as the file named "flist", then answer the questions below.
+
+   Command to copy the file: cp ~cse410/Tutorials/CSH/faculty_list flist
+
+   Command to display contents of "flist": ____cat flist________________________
+
+2) For each of the commands given below, describe (in general terms) the effect
+of executing the command.
+
+   head flist: ______first 10 lines_____________________________________________
+
+   head -8 flist: ______________first 8 lines___________________________________
+
+   tail flist: ________last 10 lines____________________________________________
+
+   tail -5 flist: __________last 5 lines________________________________________
+
+   cut -c1-22,33-40 flist: w/o 'l' shows characters 0-22 & 33-40 of each line___
+
+   sort flist: _________alphabetical order______________________________________
+
+   sort -k3,3b flist: _____sort by 3rd column, ignore leading blanks____________
+
+   sort -k2,2n flist: _____sort by second column numeric value__________________
+
+   sort -k2,2nr flist: ____by second column numeric reverse_____________________
+
+   grep 'Ch' flist: _____entries containing 'Ch' in order they appear___________
+
+   grep 'P' flist: ______containing 'P'_________________________________________
+
+   grep '^P' flist: __________beginning with 'P'________________________________
+
+   grep '7$' flist: __________ending with 7_____________________________________
+
+   grep -n 'EB' flist: ________prefix with line number__________________________
+
+   grep -v 'EB' flist: _________invertselection --> containing 'EB'_____________
+
+3) Give the command which will display all of the lines in "flist", sorted into
+order by office address (building, then room number).
+
+   _____________sort -k3,3 -k2,2 flist__________________________________________
+
+4) Give the command which will display the name and office address of each
+faculty member, but not their phone number.
+
+   _____________cut -1-33 flist_________________________________________________
+
+5) Give the command which will display all of the lines in "flist" which
+contain phone numbers that do NOT begin with "353".
+
+   _____________grep -v '353' flist_____________________________________________
+
+D. I/O Redirection and Pipelines
+
+In a Linux environment, programs have three standard I/O streams.  By default,
+programs read from the standard input stream (using "stdin" in C) and write
+to the standard output and error streams (using "stdout" and "stderr" in C).
+The C shell provides mechanisms to redirect the standard I/O streams to files
+and to create pipelines between processes.
+
+The characters '<', '>', and '>>' indicate that the next token is the name
+of a file to which the program's standard input or standard output is to be
+redirected.  The character '&' indicates that the program's standard output and
+error streams should both be redirected to the same file (for example, "a.out
+>& temporary").
+
+1) Consider the following sequence of commands:
+
+      echo 'Offices in BPS' > bpslist
+      grep 'BPS' flist >> bpslist
+
+   What is the overall effect of executing this sequence of commands?
+
+   _____________________________________________________________________________
+
+   _____________________________________________________________________________
+
+   Meaning of the symbol ">": __________________________________________________
+
+   Meaning of the symbol ">>": _________________________________________________
+
+   Command to display contents of "bpslist": ___________________________________
+
+The C shell also provides a mechanism to connect the standard output stream of
+one program to the standard input stream of another program, thereby creating
+a pipeline.  From the "man" entry for "csh":
+
+   A simple command, or a set of simple commands separated by | or |&
+   characters, forms a pipeline.  With |, the standard output of the preceding
+   command is redirected to the standard input of the command that follows.
+   With |&, both the standard error and the standard output are redirected
+   through the pipeline.
+
+The two mechanisms can be combined.  For example, a pipeline might contain six
+different utility programs (each of which might have command-line options): the
+output of the first program is connected to the input of the second program,
+and so on.  The first program might have its input redirect from a file, and
+the last program might have its output redirected to a file.
+
+2) Consider the following sequence of commands:
+
+      echo 'Offices in EB' > eblist
+      grep 'EB' flist | sort -b -k2,2 >> eblist
+
+   What is the overall effect of executing this sequence of commands?
+
+   ___creates new file eblist with title text 'Offices in EB____________________
+
+   ___adds from flist reccords with EB offices sorted by office number__________
+
+   Meaning of the symbol "|": ______routes output through next command__________
+
+   Command to display contents of "eblist": ______cat eblist____________________
+
+E. C Shell Dot Files
+
+When it is executed, the C shell checks for a file named ".cshrc" in your home
+directory.  If the shell locates that file, it reads the contents and executes
+any commands that it finds.  This gives you the ability to customize your
+environment with "personalizations" which are available whenever you access
+the system.
+
+1) Examine the contents of your ".cshrc" file and briefly describe the actions
+which occur when the shell processes that file.  Note: the "source" command
+reads and processes the contents of a file.
+
+   ________the file sources from the .personal and .aliases files to enact______
+
+   _______path and alias modifications made there_______________________________
+
+   _____________________________________________________________________________
+
+   _____________________________________________________________________________
+
+2) Examine the contents of the system-wide initialization file included in your
+".cshrc" file ("/soft/sparc/share/lib/cshrc.std") and briefly describe the
+actions which occur when the shell processes that file.
+
+   _______defaults OS specific variables and aliases____________________________
+
+   _____________________________________________________________________________
+
+   _____________________________________________________________________________
+
+   _____________________________________________________________________________
+
+3) Examine the contents of your ".personal" file and briefly describe the
+actions which occur when the shell processes that file.
+
+   ________puts current working directory in my search path_____________________
+
+   ________sets umask - for default file permissions?___________________________
+
+   ________sets prompt__________________________________________________________
+
+4) Examine the contents of your ".aliases" file and briefly describe the
+actions which occur when the shell processes that file.
+
+   _________sets aliases for some c shel commands_______________________________
+
+   _____________________________________________________________________________
+
+   _____________________________________________________________________________
+
+F. C Shell Short-cuts
+
+Aliases and the history facility provide a number of convenient short-cuts.
+
+1) Use the built-in command "alias" to display the list of aliases which "csh"
+currently recognizes, then answer the questions below.
+
+   Command(s) equivalent to "cls": ________clear________________________________
+
+   Purpose of "cls": ____________clear terminal window__________________________
+
+   Command(s) equivalent to "ll": __________ls -lF \!* | more___________________
+
+   Purpose of "ll": ___________long format list contents of directory___________
+
+   Command(s) equivalent to "rm": _________rm -i________________________________
+
+   Purpose of "rm": ____remove file and ask for confirmation____________________
+
+2) Use the built-in command "history" to display the history list maintained by
+"csh", then answer the questions below.
+
+   Purpose of "!!": ___________repeat last command______________________________
+
+   Purpose of "!8": ___________repeat prompt 8 in sequence______________________
+
+   Purpose of "!-4": __________repeat 8th command back__________________________
+
+   Purpose of "!ali": _________repeat last command begginingwith ali____________
+
+G. C Shell Variables
+
+The shell permits you to assign values to variables and manipulate them using
+the "set" command and related features.
+
+1) Use the built-in command "set" to display the list of variables which "csh"
+currently recognizes, then give the current value and purpose of each of the
+shell variables listed below.
+
+   user: _______mcgreg45______username__________________________________________
+
+   cwd: ________/user/mcgreg45________current working directory_________________
+
+   home: _______/user/mcgreg45________my home directory_________________________
+
+   shell: _______/bin/tcsh___________active shell_______________________________
+
+   history: ______256___current histroy size____________________________________
+
+2) Describe the purpose of the following sequence of commands:
+
+   cd ~cse410/Tutorials/CSH
+   set s_list = `ls *script*`
+   echo $s_list
+
+   __makes s_list an alias for listing contents containing script_______________
+
+   _____________________________________________________________________________
+
+   _____________________________________________________________________________
+
+H. C Shell Scripts
+
+A shell script is a sequence of commands stored in a text file so that the
+commands can be executed, as a group, at a later date.  Since some of the
+built-in shell commands allow you to build selective or repetitive control
+constructs, shell scripts often can be used instead of C/C++ programs to handle
+certain tasks.
+
+For example, assume that the file "simple" contains the following lines:
+
+   #!/bin/tcsh -f
+   #
+   # Display the number of users currently on the system
+   #
+   echo -n "Number of users on the system:"
+   who | wc -l
+
+The first line of a shell script identifies the particular shell which should
+be used to interpret the commands in the shell; subsequent lines are comments
+(starting with '#') or commands to be executed.
+
+1) Examine the "man" entry for "tcsh" and briefly describe the purpose of the
+following options to the C shell.
+
+   Purpose of "-f": __don't load resources or startup files for quicker startup_
+
+   Purpose of "-x": _echo's each command before executing_______________________
+
+After creating a script with an editor, you should set the "execute" bit in the
+file permissions for the file:
+
+   chmod +x simple
+
+Now, the script can be executed by typing the name of the file as the first
+token on the command line.  Notice that there are three cases for processing
+the first command-line token: the token can be the name of a built-in
+shell command, a pathname for an executable file containing machine language
+instructions, or a pathname for a shell script (an executable file containing a
+sequence of commands).
+
+The other tokens entered on the command line are treated as arguments to the
+shell script.  The shell variable "argv[1]" contains the second token from the
+command line, "argv[2]" contains the third token, and so on.
+
+For convenience, the notation "$1" is equivalent to "$argv[1]".
+
+2) Examine the C shell script named "script1", then answer the questions below.
+
+   Meaning of "$0": ___echo first arg, name of file 'script1' in this case______
+
+   Meaning of "$#argv": ___count of argv's______________________________________
+
+   Meaning of "$argv[*]": _____print out argv's_________________________________
+
+   Meaning of "$*": __________same as above_____________________________________
+
+   Meaning of "$argv[2]": ________print second arg______________________________
+
+   Meaning of "$2": _____________same as above__________________________________
+
+I. C Shell Control Constructs
+
+1) Examine the contents of the C shell script named "script2", then answer the
+questions below.
+
+   What command is used by the script to display a blank line?
+
+   _____________echo ' '________________________________________________________
+
+   What command is used by the script to display the entire contents of the
+   variable "path"?
+
+   ______________echo $path_____________________________________________________
+
+   What is the purpose of the "foreach" control construct in the script?
+
+   __________iterate individual items of the full path string___________________
+
+   _____________________________________________________________________________
+
+   What is the purpose of the "-n" option for the "echo" program?
+
+   ________no newline before next output________________________________________
+
+2) Examine the script named "script3", then answer the questions below.
+
+   What is the meaning of the operator "!=" in the script?
+
+   _________does not equal comparator___________________________________________
+
+   What is the meaning of the operator "==" in the script?
+
+   _________does equal comparator_______________________________________________
+
+   What is the purpose of the outermost "if" control construct in the script?
+
+   ________branch based on the number of arg's__________________________________
+
+   _____________________________________________________________________________
+
+   What is the purpose of the innermost "if" control construct in the script?
+
+   ________branch based on the value of the first arg___________________________
+
+   ________if local then list the contents of arg 2_____________________________
+
+   ________if global then search path for arg 2 to list contents________________
+
+   _____________________________________________________________________________
+
+   What is the purpose of the "foreach" construct in the script?
+
+   _______iterate each path in $path____________________________________________
+
+   _____________________________________________________________________________
+
+3) Copy the C shell script named "script4" into your account, then modify it to
+perform all of the operations described in the comments.
+

@@ -1,0 +1,16 @@
+#!/bin/tcsh -f
+#
+# Execute this script several times (as follows):
+#
+#   script1 aaa bbb ccc
+#   script1 aaa
+#   script1
+#
+
+echo $0
+echo $#argv
+echo $*
+echo $argv[*]
+echo $2
+echo $argv[2]
+

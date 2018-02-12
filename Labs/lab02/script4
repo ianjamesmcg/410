@@ -1,0 +1,35 @@
+#!/bin/tcsh -f
+#
+# Display a usage reminder if the user does not supply at least one file name.
+#
+# Display the three timestamps for one or more files:
+#
+#   Last access -- last time file contents were accessed
+#   Last write  -- last time file contents were changed
+#   Last change -- last time file attributes were changed
+#
+
+if ($#argv == 0) then
+
+  echo 'usage:' $0 'filename(s)'
+
+else
+
+  foreach fname ($argv[*])
+
+    echo ' '
+
+    echo -n 'Last access: '
+    /bin/ls -lu $fname | cut -c36-
+
+    echo -n 'Last write:  '
+    /bin/ls -l  $fname | cut -c36-
+
+    echo -n 'Last attribute change: '
+    /bin/ls -lc $fname | cut -c36-
+
+    echo ' '
+
+  end
+
+endif

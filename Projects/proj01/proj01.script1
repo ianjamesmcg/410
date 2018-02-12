@@ -1,0 +1,20 @@
+#!/bin/tcsh -f
+#
+# Delivers census data for the county specified in argv[1]
+# In order by Population then Census Unit
+#
+
+echo ' '
+
+if ($#argv == 0) then
+
+  echo 'usage:' $0 'CountyName'
+
+else
+ 
+ cat /user/cse410/Projects/project01.headers  
+ grep -i "| $1:q" /user/cse410/Projects/project01.data | sort -t'|' -k3,3n -k1,1
+
+endif
+
+echo ' '

@@ -1,0 +1,25 @@
+#!/bin/csh -f
+#
+# Display the following timestamps for one or more files:
+#
+#   Last read   -- last time file contents were read
+#   Last write  -- last time file contents were changed
+#   Last change -- last time file attributes were changed
+#
+echo ' '
+
+foreach fname ($argv[*])
+
+  echo -n 'Last read of contents:  '
+  /bin/ls -lu $fname | cut -c30-
+
+  echo -n 'Last write of contents: '
+  /bin/ls -l $fname | cut -c30-
+
+  echo -n 'Last attribute change:  '
+  /bin/ls -lc  $fname | cut -c30-
+
+  echo ' '
+
+end
+
